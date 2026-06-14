@@ -28,6 +28,9 @@ Out of scope for MVP (future scope):
 - Model family for MVP: Mistral 7B class model served via vLLM on AMD GPU
 - Orchestration style: Lightweight custom Python orchestration (no heavy agent framework)
 - Structured validation: Pydantic models for all agent outputs
+- Reproducibility: pin the exact model id/revision and fix decoding params.
+  Use temperature = 0 for classification, gate, and routing stages so the
+  metrics in section 7 are reproducible across runs.
 
 Rationale:
 
@@ -90,14 +93,26 @@ Purpose:
 
 - Decide auto-routing eligibility.
 
+Inputs read by this stage: category_confidence, analysis_confidence,
+intention (Stage 2), severity_level (Stage 2).
+
 Rule:
 
-- If final_confidence >= 0.70 -> auto-route
-- Else -> escalate to human review queue
+- auto_route = (final_confidence >= CONFIDENCE_THRESHOLD)
+  AND (intention != Escalation)
+  AND (severity_level != High)
+- Otherwise -> escalate to human review queue
+
+Escalation override rationale: an explicit Escalation intent or a High
+severity always routes to human review regardless of confidence, so
+high-stakes cases are never silently auto-routed.
 
 Final confidence policy:
 
 - final_confidence = min(category_confidence, analysis_confidence)
+- This min() is deliberately conservative: a low score from either agent
+  forces escalation. Expect an elevated human-review rate as a result;
+  this is an accepted MVP tradeoff.
 
 Output contract:
 
@@ -121,13 +136,22 @@ Category to team mapping:
 - Service quality -> Operations Team
 - Other -> Support Team
 
-Output contract:
+Output contract (shared by both branches — auto-routed and human-review):
 
 - route_status: enum {Routed, HumanReview}
 - destination_team: string
 - priority_hint: enum {High, Medium, Low}
 - routing_timestamp: ISO timestamp
 - routing_note: string
+
+Contract semantics:
+
+- priority_hint is a pass-through of Stage 2 severity_level (High/Medium/Low).
+- Auto-routed case: route_status = Routed, destination_team = mapped team.
+- Human-review case (auto_route = false): route_status = HumanReview,
+  destination_team = "HumanReviewQueue", routing_note carries the
+  escalation_reason from Stage 3. Both branches emit this same schema so
+  downstream consumers handle one payload shape.
 
 ## 4. End-to-End Data Flow
 
@@ -136,9 +160,12 @@ For each complaint:
 1. Load complaint text and metadata.
 2. Run Classification Agent and validate output.
 3. Run Severity and Intention Agent and validate output.
-4. Apply Confidence Gate using threshold = 0.70.
-5. If auto_route is true, execute Routing Agent and emit route payload.
-6. If auto_route is false, send case to human-review queue payload.
+4. Apply Confidence Gate: auto_route requires final_confidence >=
+   CONFIDENCE_THRESHOLD AND intention != Escalation AND severity_level != High.
+5. If auto_route is true, execute Routing Agent and emit the Stage 4 payload
+   (route_status = Routed).
+6. If auto_route is false, emit the same Stage 4 payload with
+   route_status = HumanReview and destination_team = "HumanReviewQueue".
 
 ## 5. Error Handling and Guardrails
 
@@ -177,6 +204,11 @@ Notebook 3: Pipeline Execution with Sample Complaints
 - Load sample complaints
 - Execute full pipeline per complaint
 - Persist structured outputs to dataframe/json
+- Batching note: the per-complaint flow above is logically sequential
+  (two LLM calls per complaint). Throughput numbers in Notebook 4 require a
+  defined batch strategy — e.g. batch the same stage across many complaints
+  into grouped vLLM requests. Define this batch strategy here before
+  measuring; otherwise throughput reflects only serial execution.
 
 Notebook 4: Evaluation and Efficiency Metrics
 
@@ -212,7 +244,10 @@ Locked:
 
 - No UI in MVP
 - Sample complaints as input
-- 70% confidence threshold
+- 70% confidence threshold, defined once as CONFIDENCE_THRESHOLD = 0.70 and
+  referenced everywhere else (single source of truth — do not hardcode 0.70
+  in multiple places)
+- Escalation override: Escalation intent or High severity forces human review
 - Lightweight custom orchestration
 - Modular specialized agent chain
 

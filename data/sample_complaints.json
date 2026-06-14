@@ -1,0 +1,194 @@
+[
+  {
+    "complaint_id": "C001",
+    "channel": "email",
+    "complaint_text": "I was charged twice for my booking and need a refund for the duplicate payment.",
+    "received_at": "2026-06-01T09:12:00Z",
+    "gold_category": "Payments / Refund related",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C002",
+    "channel": "web_form",
+    "complaint_text": "My refund has still not arrived after three weeks, the money was taken from my account.",
+    "received_at": "2026-06-01T10:01:00Z",
+    "gold_category": "Payments / Refund related",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C003",
+    "channel": "email",
+    "complaint_text": "My luggage was lost during the connecting flight and the bag has not been returned.",
+    "received_at": "2026-06-01T11:30:00Z",
+    "gold_category": "Baggage / Item lost",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C004",
+    "channel": "phone",
+    "complaint_text": "I need my suitcase urgently, it contains medication and the baggage was misplaced.",
+    "received_at": "2026-06-01T12:05:00Z",
+    "gold_category": "Baggage / Item lost",
+    "gold_severity": "High"
+  },
+  {
+    "complaint_id": "C005",
+    "channel": "web_form",
+    "complaint_text": "I want to reschedule my booking but the reservation system will not let me change the ticket.",
+    "received_at": "2026-06-02T08:45:00Z",
+    "gold_category": "Booking issues",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C006",
+    "channel": "email",
+    "complaint_text": "Please cancel my reservation, I made the booking by mistake.",
+    "received_at": "2026-06-02T09:20:00Z",
+    "gold_category": "Booking issues",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C007",
+    "channel": "web_form",
+    "complaint_text": "How do I find information about checked baggage allowance? Just a general question.",
+    "received_at": "2026-06-02T10:00:00Z",
+    "gold_category": "Baggage / Item lost",
+    "gold_severity": "Low"
+  },
+  {
+    "complaint_id": "C008",
+    "channel": "email",
+    "complaint_text": "What is the process to update my profile details? I was wondering about this.",
+    "received_at": "2026-06-02T10:30:00Z",
+    "gold_category": "General inquiry",
+    "gold_severity": "Low"
+  },
+  {
+    "complaint_id": "C009",
+    "channel": "phone",
+    "complaint_text": "There was an unsafe situation on board, I felt in danger and this is an emergency.",
+    "received_at": "2026-06-02T14:00:00Z",
+    "gold_category": "Safety / Security concern",
+    "gold_severity": "High"
+  },
+  {
+    "complaint_id": "C010",
+    "channel": "social",
+    "complaint_text": "A security threat was ignored by staff and a passenger was harassed.",
+    "received_at": "2026-06-02T15:10:00Z",
+    "gold_category": "Safety / Security concern",
+    "gold_severity": "High"
+  },
+  {
+    "complaint_id": "C011",
+    "channel": "email",
+    "complaint_text": "The cabin was dirty and the staff were rude throughout the service.",
+    "received_at": "2026-06-03T07:50:00Z",
+    "gold_category": "Service quality",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C012",
+    "channel": "web_form",
+    "complaint_text": "My flight was delayed and the service at the desk was extremely late and unhelpful.",
+    "received_at": "2026-06-03T08:15:00Z",
+    "gold_category": "Service quality",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C013",
+    "channel": "email",
+    "complaint_text": "This is unacceptable, I demand to speak to a manager and escalate my refund dispute.",
+    "received_at": "2026-06-03T09:00:00Z",
+    "gold_category": "Payments / Refund related",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C014",
+    "channel": "phone",
+    "complaint_text": "I want a supervisor to escalate this, my booking was cancelled without any notice.",
+    "received_at": "2026-06-03T09:40:00Z",
+    "gold_category": "Booking issues",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C015",
+    "channel": "web_form",
+    "complaint_text": "Could you please send me a copy of my invoice for the payment last month?",
+    "received_at": "2026-06-03T10:20:00Z",
+    "gold_category": "Payments / Refund related",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C016",
+    "channel": "email",
+    "complaint_text": "The whole experience left me unhappy but I am not sure who to talk to about it.",
+    "received_at": "2026-06-03T11:00:00Z",
+    "gold_category": "Other",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C017",
+    "channel": "social",
+    "complaint_text": "Random feedback that does not clearly fit any single bucket here.",
+    "received_at": "2026-06-03T11:30:00Z",
+    "gold_category": "Other",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C018",
+    "channel": "web_form",
+    "complaint_text": "I have a quick question, I was just wondering what the minor change fee is.",
+    "received_at": "2026-06-03T12:00:00Z",
+    "gold_category": "General inquiry",
+    "gold_severity": "Low"
+  },
+  {
+    "complaint_id": "C019",
+    "channel": "email",
+    "complaint_text": "My bag with the lost item inside was never recovered, please help.",
+    "received_at": "2026-06-04T08:10:00Z",
+    "gold_category": "Baggage / Item lost",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C020",
+    "channel": "phone",
+    "complaint_text": "I need to cancel and rebook my ticket, the reservation shows the wrong date.",
+    "received_at": "2026-06-04T08:50:00Z",
+    "gold_category": "Booking issues",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C021",
+    "channel": "web_form",
+    "complaint_text": "The payment failed but the money was charged, I need this refund immediately as it is urgent.",
+    "received_at": "2026-06-04T09:25:00Z",
+    "gold_category": "Payments / Refund related",
+    "gold_severity": "High"
+  },
+  {
+    "complaint_id": "C022",
+    "channel": "email",
+    "complaint_text": "Staff were rude and the service was poor, I want to escalate this to a manager.",
+    "received_at": "2026-06-04T10:05:00Z",
+    "gold_category": "Service quality",
+    "gold_severity": "Medium"
+  },
+  {
+    "complaint_id": "C023",
+    "channel": "social",
+    "complaint_text": "How do I get information about the lounge? Just curious, no rush whenever.",
+    "received_at": "2026-06-04T10:45:00Z",
+    "gold_category": "General inquiry",
+    "gold_severity": "Low"
+  },
+  {
+    "complaint_id": "C024",
+    "channel": "phone",
+    "complaint_text": "There is a danger to passengers, an unsafe door, please treat this as an emergency.",
+    "received_at": "2026-06-04T11:15:00Z",
+    "gold_category": "Safety / Security concern",
+    "gold_severity": "High"
+  }
+]
