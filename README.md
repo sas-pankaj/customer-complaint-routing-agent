@@ -71,7 +71,7 @@ src/complaint_router/    # core package (schemas, config, agents, pipeline, guar
   agents/                # one module per specialized agent (Stages 1-4)
   llm/                   # pluggable client: mock backend + vLLM backend
 data/                    # labeled sample complaints
-notebooks/               # thin demo notebooks (01 cloud-only, 02-04 run locally)
+notebooks/               # 01_setup (cloud/GPU setup), 02_pipeline_execution (end-to-end demo)
 tests/                   # pytest suite (gate, routing, schemas, guardrails, pipeline)
 ```
 
@@ -80,26 +80,50 @@ tests/                   # pytest suite (gate, routing, schemas, guardrails, pip
 The pipeline runs end-to-end on a deterministic mock LLM backend, so you can
 develop and test on any machine before moving to the AMD cloud.
 
+**1. Create a virtual environment and install dependencies**
+
 ```bash
 python -m venv .venv
-.venv/Scripts/python -m pip install -e ".[dev]"   # Windows; use .venv/bin/python on Unix
-.venv/Scripts/python -m pytest                    # run the test suite
+.venv\Scripts\python -m pip install -e ".[dev]"
 ```
 
-Then open `notebooks/02`, `03`, and `04` and run them top to bottom — they
-import the package and use `MockClient`.
+**2. Run the test suite**
+
+```bash
+.venv\Scripts\python -m pytest
+```
+
+**3. Quick manual test (single complaint)**
+
+```bash
+# Pass a complaint as an argument
+.venv\Scripts\python try_complaint.py "I was charged twice and need a refund urgently"
+
+# Or run with the built-in example
+.venv\Scripts\python try_complaint.py
+```
+
+This prints every pipeline stage — category, severity, intention, confidence gate, and final route.
+
+**4. Notebook walkthrough**
+
+Open `notebooks/02_pipeline_execution.ipynb` and run top to bottom — it imports
+the package and uses `MockClient` with no GPU required.
 
 ## Switch to vLLM on the AMD Cloud
 
-1. Open the AMD notebook environment (ROCm + vLLM image) and run `notebooks/01`
-   to verify the GPU and start the vLLM server (model id is pinned in
-   `complaint_router.config`).
-2. In notebooks 03/04, swap the backend — no other code changes:
+1. Open the AMD notebook environment (ROCm + vLLM image) and run
+   `notebooks/01_setup.ipynb` to verify the GPU and start the vLLM server
+   (model id is pinned in `complaint_router.config`).
+2. In `notebooks/02_pipeline_execution.ipynb`, swap the backend — no other code
+   changes required:
    ```python
    from complaint_router.llm.vllm_client import VLLMClient
    client = VLLMClient()
    ```
    Outputs validate against the same Pydantic schemas as the mock.
+3. You can also run `try_complaint.py` against the live vLLM endpoint by
+   replacing `MockClient` with `VLLMClient` at the top of the script.
 
 ## Confidence Gate and Escalation Override
 

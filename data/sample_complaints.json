@@ -96,14 +96,6 @@
     "gold_severity": "Medium"
   },
   {
-    "complaint_id": "C013",
-    "channel": "email",
-    "complaint_text": "This is unacceptable, I demand to speak to a manager and escalate my refund dispute.",
-    "received_at": "2026-06-03T09:00:00Z",
-    "gold_category": "Payments / Refund related",
-    "gold_severity": "Medium"
-  },
-  {
     "complaint_id": "C014",
     "channel": "phone",
     "complaint_text": "I want a supervisor to escalate this, my booking was cancelled without any notice.",
