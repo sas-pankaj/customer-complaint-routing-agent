@@ -37,10 +37,12 @@ class VLLMClient:
             "temperature": self.temperature,
             "response_format": {"type": "json_object"},
         }
+        headers = {"Authorization": "Bearer abc-123"}
         try:
             resp = httpx.post(
                 f"{self.base_url}/chat/completions",
                 json=payload,
+                headers=headers,
                 timeout=self.timeout_seconds,
             )
             resp.raise_for_status()
